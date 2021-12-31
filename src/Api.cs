@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using NBASharp.Model;
 using NBASharp.ModelDto;
 using PlayerBioModel = NBASharp.Model.PlayerBioModel;
 
@@ -28,7 +29,6 @@ public static class Api
     public static async Task<IEnumerable<PlayerBioModel>> GetPlayerBio(string playerId)
     {
         var playerBioModel = new List<PlayerBioModel>();
-
         var response = await GetResponse("json/bios/" + playerId + ".json");
         var playerBioRootDto = JsonSerializer.Deserialize<PlayerBioRootDto>(response);
 
@@ -46,5 +46,52 @@ public static class Api
         });
 
         return playerBioModel;
+    }
+
+    /// <summary>
+    /// Returns a scoreboard summary for the given date. Can be used to get GameIds.
+    /// </summary>
+    /// <param name="date">The date the games took place in YYYMMDD format (eg: 20190201).</param>
+    /// <returns>A list of game objects for a specified date</returns>
+    public static async Task<IEnumerable<GameModel>> GetScoreboard(string date)
+    {
+        var scoreboardModel = new List<GameModel>();
+        var response = await GetResponse("prod/v2/" + date + "/scoreboard.json");
+        var scoreboardRootDto = JsonSerializer.Deserialize<ScoreboardRootDto>(response);
+
+        foreach (var score in scoreboardRootDto?.games)
+        {
+            scoreboardModel.Add(new GameModel()
+            {
+                Attendance = score?.attendance,
+                Clock = score?.clock,
+                EndTimeUTC = score?.endTimeUTC,
+                ExtendedStatusNum = score?.extendedStatusNum,
+                GameId = score?.gameId,
+                HasGameBookPdf = score?.hasGameBookPdf,
+                IsBuzzerBeater = score?.isBuzzerBeater,
+                SeasonStageId = score?.seasonStageId,
+                SeasonYear = score?.seasonYear,
+                IsGameActivated = score?.isGameActivated,
+                StatusNum = score?.statusNum,
+                StartTimeEastern = score?.startTimeEastern,
+                StartTimeUTC = score?.startTimeUTC,
+                StartDateEastern = score?.startDateEastern,
+                IsStartTimeTBD = score?.isStartTimeTBD,
+                IsPreviewArticleAvail = score?.isPreviewArticleAvail,
+                IsRecapArticleAvail = score?.isRecapArticleAvail,
+
+                /* Need to populate these at some point
+                VTeam
+                Watch
+                Nugget,
+                Watch,
+                HTeam
+                Period
+                */
+            });
+        }
+
+        return scoreboardModel;
     }
 }

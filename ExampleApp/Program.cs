@@ -19,5 +19,23 @@ internal class Program
             Console.WriteLine($"Other text: {item.OtherText}");
             Console.WriteLine($"Twitter: {item.Twitter}");
         }
+
+        var scoreboard = Api.GetScoreboard("20190201").GetAwaiter().GetResult();
+
+        foreach (var item in scoreboard)
+        {
+            Console.WriteLine($"Arena: {item.Arena}");
+            Console.WriteLine($"Game ID:{item.GameId}");
+            Console.WriteLine($"Start time (UTC): {item.StartTimeUTC}");
+            Console.WriteLine($"End time (UTC):{ item.EndTimeUTC}");
+            Console.WriteLine($"Season Year:{item.SeasonYear}");
+            Console.WriteLine($"Attendance : {item.Attendance}");
+            Console.WriteLine($"Clock: {item.Clock}");
+            Console.WriteLine($"Game duration: {item.GameDuration}");
+            Console.WriteLine($"Tickets: {item.Tickets}");
+            Console.WriteLine($"Stats num: {item.StatusNum}");
+            Console.WriteLine($"Is buzzer beater: {item.IsBuzzerBeater}");
+            Console.WriteLine($"Is game activated: {item.IsGameActivated}");
+        }
     }
 }

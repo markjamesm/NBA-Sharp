@@ -7,7 +7,8 @@
 	  <Product>NBASharp</Product>
 	  <Title>NBA Sharp</Title>
 	  <Description>
-		  NBA Sharp is an unofficial .NET wrapper library for the public facing (but undocumented) NBA APIs. Currently in an early alpha status, the project is built on .NET 6.0. 
+		  NBA Sharp is an unofficial .NET wrapper library for the public facing NBA APIs. Currently in an early alpha status, the project is built on .NET 6.0. 
+
 		  Note: This package and its author are not affiliated with the NBA or any NBA team. 
 	  </Description>
 	  <RepositoryUrl>https://github.com/markjamesm/NBA-Sharp</RepositoryUrl>

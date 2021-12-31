@@ -11,6 +11,10 @@ NBA Sharp is an unofficial .NET wrapper library for the public facing (but undoc
 
 * Returns a short bio for a given player.
 
+#### GetScoreboard(string date)
+
+* Returns a list of scoreboard summaries for the given date. Can be used to get GameIds for making other calls.
+
 ## Todo
 
 * Implement additional endpoints
