@@ -5,5 +5,14 @@
 
 NBA Sharp is an unofficial .NET wrapper library for the public facing (but undocumented) MLB Stats API. Currently in an early alpha status, the project is built on .NET 6.0.
 
+## Endpoints
+
+* Get
+
+## Todo
+
+* Implement additional endpoints
+* Setup DocFX (for API documentation)
+
 ## Copyright Notice
 This package and its author are not affiliated with the NBA or any NBA team.
