@@ -13,6 +13,6 @@ public class VideoDto
     public bool isNBAOnTNTVR { get; set; }
     public bool isMagicLeap { get; set; }
     public bool isOculusVenues { get; set; }
-    public List<Stream> streams { get; set; }
+    public List<StreamDto> streams { get; set; }
     public List<DeepLinkDto> deepLink { get; set; }
 }

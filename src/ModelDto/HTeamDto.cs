@@ -12,6 +12,6 @@ public class HTeamDto
     public List<LinescoreDto> linescore { get; set; }
     public string shortName { get; set; }
     public string longName { get; set; }
-    public List<Stream> streams { get; set; }
+    public List<StreamDto> streams { get; set; }
     public List<BroadcastersDto> broadcasters { get; set; }
 }

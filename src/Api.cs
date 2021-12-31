@@ -48,6 +48,11 @@ public static class Api
         return playerBioModel;
     }
 
+    /// <summary>
+    /// Returns a scoreboard summary for the given date. Can be used to get GameIds.
+    /// </summary>
+    /// <param name="date">The date the games took place in YYYMMDD format (eg: 20190201).</param>
+    /// <returns>A list of game objects for a specified date</returns>
     public static async Task<IEnumerable<GameModel>> GetScoreboard(string date)
     {
         var scoreboardModel = new List<GameModel>();
@@ -58,23 +63,10 @@ public static class Api
         {
             scoreboardModel.Add(new GameModel()
             {
-                Arena = new ArenaModel()
-                {
-                    City = score?.arena?.city,
-                    Country = score?.arena.country,
-                    IsDomestic = score?.arena.isDomestic,
-                    Name = score?.arena.name,
-                    StateAbbr = score?.arena.stateAbbr
-                },
                 Attendance = score?.attendance,
                 Clock = score?.clock,
                 EndTimeUTC = score?.endTimeUTC,
                 ExtendedStatusNum = score?.extendedStatusNum,
-                GameDuration = new GameDurationModel()
-                {
-                    Hours = score?.gameDuration.hours,
-                    Minutes = score?.gameDuration.minutes
-                },
                 GameId = score?.gameId,
                 HasGameBookPdf = score?.hasGameBookPdf,
                 IsBuzzerBeater = score?.isBuzzerBeater,
@@ -90,10 +82,12 @@ public static class Api
                 IsRecapArticleAvail = score?.isRecapArticleAvail,
 
                 /* Need to populate these at some point
-                VTeam = null,
-                Watch = null,                
-                HTeam = null,
-                Period = null
+                VTeam
+                Watch
+                Nugget,
+                Watch,
+                HTeam
+                Period
                 */
             });
         }
