@@ -13,5 +13,5 @@ public class VTeamModel
     public string ShortName { get; set; }
     public string LongName { get; set; }
     public List<Stream> Streams { get; set; }
-    public List<Broa> broadcasters { get; set; }
+    public List<BroadcastersModel> broadcasters { get; set; }
 }

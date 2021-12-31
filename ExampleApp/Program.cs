@@ -19,5 +19,12 @@ internal class Program
             Console.WriteLine($"Other text: {item.OtherText}");
             Console.WriteLine($"Twitter: {item.Twitter}");
         }
+
+        var scoreboard = Api.GetScoreboard("20190201").GetAwaiter().GetResult();
+
+        foreach (var item in scoreboard)
+        {
+
+        }
     }
 }

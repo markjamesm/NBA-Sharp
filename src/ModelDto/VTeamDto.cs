@@ -13,5 +13,5 @@ public class VTeamDto
     public string shortName { get; set; }
     public string longName { get; set; }
     public List<Stream> streams { get; set; }
-    public List<Broadcaster> broadcasters { get; set; }
+    public List<BroadcastDto> broadcasters { get; set; }
 }

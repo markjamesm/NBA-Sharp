@@ -48,11 +48,55 @@ public static class Api
         return playerBioModel;
     }
 
-    public static async Task<IEnumerable<ScoreboardRootModel>> GetScoreboard(string date)
+    public static async Task<IEnumerable<GameModel>> GetScoreboard(string date)
     {
-        var scoreboardModel = new List<ScoreboardRootModel>();
+        var scoreboardModel = new List<GameModel>();
         var response = await GetResponse("prod/v2/" + date + "/scoreboard.json");
         var scoreboardRootDto = JsonSerializer.Deserialize<ScoreboardRootDto>(response);
+
+        foreach (var score in scoreboardRootDto?.games)
+        {
+            scoreboardModel.Add(new GameModel()
+            {
+                Arena = new ArenaModel()
+                {
+                    City = score?.arena?.city,
+                    Country = score?.arena.country,
+                    IsDomestic = score?.arena.isDomestic,
+                    Name = score?.arena.name,
+                    StateAbbr = score?.arena.stateAbbr
+                },
+                Attendance = score?.attendance,
+                Clock = score?.clock,
+                EndTimeUTC = score?.endTimeUTC,
+                ExtendedStatusNum = score?.extendedStatusNum,
+                GameDuration = new GameDurationModel()
+                {
+                    Hours = score?.gameDuration.hours,
+                    Minutes = score?.gameDuration.minutes
+                },
+                GameId = score?.gameId,
+                HasGameBookPdf = score?.hasGameBookPdf,
+                IsBuzzerBeater = score?.isBuzzerBeater,
+                SeasonStageId = score?.seasonStageId,
+                SeasonYear = score?.seasonYear,
+                IsGameActivated = score?.isGameActivated,
+                StatusNum = score?.statusNum,
+                StartTimeEastern = score?.startTimeEastern,
+                StartTimeUTC = score?.startTimeUTC,
+                StartDateEastern = score?.startDateEastern,
+                IsStartTimeTBD = score?.isStartTimeTBD,
+                IsPreviewArticleAvail = score?.isPreviewArticleAvail,
+                IsRecapArticleAvail = score?.isRecapArticleAvail,
+
+                /* Need to populate these at some point
+                VTeam = null,
+                Watch = null,                
+                HTeam = null,
+                Period = null
+                */
+            });
+        }
 
         return scoreboardModel;
     }
