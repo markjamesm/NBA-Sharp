@@ -3,7 +3,7 @@
 
 ## About
 
-NBA Sharp is an unofficial .NET wrapper library for the public facing MLB Stats API. Currently in an early alpha status, the project is built on .NET 6.0.
+NBA Sharp is an unofficial .NET library for the public facing MLB Stats API. Currently in an early alpha status, the project is built on .NET 6.0.
 
 ## Endpoints
 
