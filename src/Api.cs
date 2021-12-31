@@ -1,28 +1,50 @@
-﻿namespace NBASharp;
+﻿using System.Text.Json;
+using NBASharp.ModelDto;
+using PlayerBioModel = NBASharp.Model.PlayerBioModel;
+
+namespace NBASharp;
 
 /// <summary>
-/// The Api class holds all MLB Stats API endpoints that can be accessed from Baseball Sharp.
+/// The Api class holds all NBA API endpoints that can be accessed from NBA Sharp.
 /// </summary>
 public static class Api
 {
-    private static readonly string _baseUrl = "https://data.nba.net/prod/v1";
+    private static HttpClient _httpClient = new HttpClient();
+    private const string _baseUrl = "https://data.nba.net/";
 
     private static async Task<string> getResponse(string? endpoint)
     {
-        using (var client = new HttpClient())
+
+        var returnMessage = await _httpClient.GetAsync(_baseUrl + (endpoint ?? "")).ConfigureAwait(false);
+
+        return await returnMessage.Content.ReadAsStringAsync();
+    }
+
+    /// <summary>
+    /// Returns a player bio for a given player id.
+    /// </summary>
+    /// <param name="playerId">The ID of the player.</param>
+    /// <returns>A list of player bio objects.</returns>
+    public static async Task<IEnumerable<PlayerBioModel>> GetPlayerBio(string playerId)
+    {
+        var playerBioModel = new List<PlayerBioModel>();
+
+        var response = await getResponse("json/bios/" + playerId + ".json");
+        var playerBioRootDto = JsonSerializer.Deserialize<PlayerBioRootDto>(response);
+
+        playerBioModel.Add(new PlayerBioModel()
         {
-            var return_message = new HttpResponseMessage();
+            Id = playerBioRootDto?.Bio?.id,
+            Type = playerBioRootDto?.Bio?.type,
+            College = playerBioRootDto?.Bio?.college,
+            DisplayName = playerBioRootDto?.Bio?.display_name,
+            HighSchool = playerBioRootDto?.Bio?.highschool,
+            OtherLabel = playerBioRootDto?.Bio?.other_label,
+            OtherText = playerBioRootDto?.Bio?.other_text,
+            Professional = playerBioRootDto?.Bio?.professional,
+            Twitter = playerBioRootDto?.Bio?.twitter
+        });
 
-            try
-            {
-                return_message = await client.GetAsync(_baseUrl + (endpoint ?? "")).ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-
-            return await return_message.Content.ReadAsStringAsync();
-        }
+        return playerBioModel;
     }
 }
