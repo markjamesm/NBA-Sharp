@@ -6,7 +6,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        var sampleBio = Api.GetPlayerBio("player_201935").GetAwaiter().GetResult();
+        var sampleBio = NBAClient.GetPlayerBio("player_201935").GetAwaiter().GetResult();
 
         foreach (var item in sampleBio)
         {
@@ -20,7 +20,7 @@ internal class Program
             Console.WriteLine($"Twitter: {item.Twitter}");
         }
 
-        var scoreboard = Api.GetScoreboard("20190201").GetAwaiter().GetResult();
+        var scoreboard = NBAClient.GetScoreboard("20190201").GetAwaiter().GetResult();
 
         foreach (var item in scoreboard)
         {

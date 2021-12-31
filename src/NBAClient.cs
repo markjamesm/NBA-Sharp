@@ -8,7 +8,7 @@ namespace NBASharp;
 /// <summary>
 /// The Api class holds all NBA API endpoints that can be accessed from NBA Sharp.
 /// </summary>
-public static class Api
+public static class NBAClient
 {
     private static HttpClient _httpClient = new HttpClient();
     private const string _baseUrl = "https://data.nba.net/";
