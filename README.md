@@ -7,7 +7,9 @@ NBA Sharp is an unofficial .NET wrapper library for the public facing (but undoc
 
 ## Endpoints
 
-* Get
+#### GetPlayerBio(string playerId)
+
+* Returns a short bio for a given player.
 
 ## Todo
 
