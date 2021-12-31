@@ -13,7 +13,7 @@ public static class NBAClient
     private static HttpClient _httpClient = new HttpClient();
     private const string _baseUrl = "https://data.nba.net/";
 
-    private static async Task<string> GetResponse(string? endpoint)
+    private static async Task<string> GetResponseAsync(string? endpoint)
     {
 
         var returnMessage = await _httpClient.GetAsync(_baseUrl + (endpoint ?? "")).ConfigureAwait(false);
@@ -26,10 +26,10 @@ public static class NBAClient
     /// </summary>
     /// <param name="playerId">The ID of the player.</param>
     /// <returns>A list of player bio objects.</returns>
-    public static async Task<IEnumerable<PlayerBioModel>> GetPlayerBio(string playerId)
+    public static async Task<IEnumerable<PlayerBioModel>> GetPlayerBioAsync(string playerId)
     {
         var playerBioModel = new List<PlayerBioModel>();
-        var response = await GetResponse("json/bios/" + playerId + ".json");
+        var response = await GetResponseAsync("json/bios/" + playerId + ".json");
         var playerBioRootDto = JsonSerializer.Deserialize<PlayerBioRootDto>(response);
 
         playerBioModel.Add(new PlayerBioModel()
@@ -53,10 +53,10 @@ public static class NBAClient
     /// </summary>
     /// <param name="date">The date the games took place in YYYMMDD format (eg: 20190201).</param>
     /// <returns>A list of game objects for a specified date</returns>
-    public static async Task<IEnumerable<GameModel>> GetScoreboard(string date)
+    public static async Task<IEnumerable<GameModel>> GetScoreboardAsync(string date)
     {
         var scoreboardModel = new List<GameModel>();
-        var response = await GetResponse("prod/v2/" + date + "/scoreboard.json");
+        var response = await GetResponseAsync("prod/v2/" + date + "/scoreboard.json");
         var scoreboardRootDto = JsonSerializer.Deserialize<ScoreboardRootDto>(response);
 
         foreach (var score in scoreboardRootDto?.games)
