@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using NBASharp.Model;
 using NBASharp.ModelDto;
 using PlayerBioModel = NBASharp.Model.PlayerBioModel;
 
@@ -12,7 +13,7 @@ public static class Api
     private static HttpClient _httpClient = new HttpClient();
     private const string _baseUrl = "https://data.nba.net/";
 
-    private static async Task<string> getResponse(string? endpoint)
+    private static async Task<string> GetResponse(string? endpoint)
     {
 
         var returnMessage = await _httpClient.GetAsync(_baseUrl + (endpoint ?? "")).ConfigureAwait(false);
@@ -28,8 +29,7 @@ public static class Api
     public static async Task<IEnumerable<PlayerBioModel>> GetPlayerBio(string playerId)
     {
         var playerBioModel = new List<PlayerBioModel>();
-
-        var response = await getResponse("json/bios/" + playerId + ".json");
+        var response = await GetResponse("json/bios/" + playerId + ".json");
         var playerBioRootDto = JsonSerializer.Deserialize<PlayerBioRootDto>(response);
 
         playerBioModel.Add(new PlayerBioModel()
@@ -46,5 +46,14 @@ public static class Api
         });
 
         return playerBioModel;
+    }
+
+    public static async Task<IEnumerable<ScoreboardRootModel>> GetScoreboard(string date)
+    {
+        var scoreboardModel = new List<ScoreboardRootModel>();
+        var response = await GetResponse("prod/v2/" + date + "/scoreboard.json");
+        var scoreboardRootDto = JsonSerializer.Deserialize<ScoreboardRootDto>(response);
+
+        return scoreboardModel;
     }
 }
