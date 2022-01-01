@@ -4,11 +4,11 @@ namespace ExampleApp;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    private static async Task Main(string[] args)
     {
         var nbaClient = new NBAClient();
 
-        var sampleBio = nbaClient.GetPlayerBioAsync("player_201935").GetAwaiter().GetResult();
+        var sampleBio = await nbaClient.GetPlayerBioAsync("player_201935");
 
         foreach (var item in sampleBio)
         {
@@ -22,7 +22,7 @@ internal class Program
             Console.WriteLine($"Twitter: {item.Twitter}");
         }
 
-        var scoreboard = nbaClient.GetScoreboardAsync("20190201").GetAwaiter().GetResult();
+        var scoreboard = await nbaClient.GetScoreboardAsync("20190201");
 
         foreach (var item in scoreboard)
         {
@@ -40,14 +40,14 @@ internal class Program
             Console.WriteLine($"Is game activated: {item.IsGameActivated}");
         }
 
-        var teamRoster = nbaClient.GetTeamRosterBySlugAsync("2018", "pistons").GetAwaiter().GetResult();
+        var teamRoster = await nbaClient.GetTeamRosterBySlugAsync("2018", "pistons");
 
         foreach (var item in teamRoster)
         {
             Console.WriteLine($"PlayerId: {item.PersonId}");
         }
 
-        var leadTracker = nbaClient.GetLeadTrackerAsync("20170201", "0021600732", "2").GetAwaiter().GetResult();
+        var leadTracker = await nbaClient.GetLeadTrackerAsync("20170201", "0021600732", "2");
 
         foreach (var item in leadTracker)
         {
