@@ -1,5 +1,5 @@
 # NBA Sharp
-[![.NET](https://github.com/markjamesm/NBA-Sharp/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/markjamesm/NBA-Sharp/actions/workflows/dotnet.yml) [![C#](https://img.shields.io/badge/Language-CSharp-darkgreen.svg)](https://en.wikipedia.org/wiki/C_Sharp_(programming_language)) [![License](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
+[![.NET](https://github.com/markjamesm/NBA-Sharp/actions/workflows/dotnet.yml/badge.svgbranch=master)](https://github.com/markjamesm/NBA-Sharp/actions/workflows/dotnet.yml) [![C#](https://img.shields.io/badge/Language-CSharp-darkgreen.svg)](https://en.wikipedia.org/wiki/C_Sharp_(programming_language)) [![License](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
 
 ## About
 

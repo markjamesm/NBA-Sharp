@@ -2,5 +2,5 @@
 
 public class PlayerBioRootDto
 {
-    public PlayerBioModel? Bio { get; set; }
+    public PlayerBioModel Bio { get; set; }
 }

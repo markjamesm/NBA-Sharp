@@ -13,7 +13,7 @@ public class NBAClient : INBAClient
     private static HttpClient _httpClient = new HttpClient();
     private const string _baseUrl = "https://data.nba.net/";
 
-    private async Task<string> GetResponseAsync(string? endpoint)
+    private async Task<string> GetResponseAsync(string endpoint)
     {
 
         var returnMessage = await _httpClient.GetAsync(_baseUrl + (endpoint ?? "")).ConfigureAwait(false);
@@ -34,15 +34,15 @@ public class NBAClient : INBAClient
 
         playerBioModel.Add(new PlayerBioModel()
         {
-            Id = playerBioRootDto?.Bio?.id,
-            Type = playerBioRootDto?.Bio?.type,
-            College = playerBioRootDto?.Bio?.college,
-            DisplayName = playerBioRootDto?.Bio?.display_name,
-            HighSchool = playerBioRootDto?.Bio?.highschool,
-            OtherLabel = playerBioRootDto?.Bio?.other_label,
-            OtherText = playerBioRootDto?.Bio?.other_text,
-            Professional = playerBioRootDto?.Bio?.professional,
-            Twitter = playerBioRootDto?.Bio?.twitter
+            Id = playerBioRootDto.Bio.id,
+            Type = playerBioRootDto.Bio.type,
+            College = playerBioRootDto.Bio.college,
+            DisplayName = playerBioRootDto.Bio.display_name,
+            HighSchool = playerBioRootDto.Bio.highschool,
+            OtherLabel = playerBioRootDto.Bio.other_label,
+            OtherText = playerBioRootDto.Bio.other_text,
+            Professional = playerBioRootDto.Bio.professional,
+            Twitter = playerBioRootDto.Bio.twitter
         });
 
         return playerBioModel;
@@ -59,27 +59,27 @@ public class NBAClient : INBAClient
         var response = await GetResponseAsync("prod/v2/" + date + "/scoreboard.json");
         var scoreboardRootDto = JsonSerializer.Deserialize<ScoreboardRootDto>(response);
 
-        foreach (var score in scoreboardRootDto?.games)
+        foreach (var score in scoreboardRootDto.games)
         {
             scoreboardModel.Add(new GameModel()
             {
-                Attendance = score?.attendance,
-                Clock = score?.clock,
-                EndTimeUTC = score?.endTimeUTC,
-                ExtendedStatusNum = score?.extendedStatusNum,
-                GameId = score?.gameId,
-                HasGameBookPdf = score?.hasGameBookPdf,
-                IsBuzzerBeater = score?.isBuzzerBeater,
-                SeasonStageId = score?.seasonStageId,
-                SeasonYear = score?.seasonYear,
-                IsGameActivated = score?.isGameActivated,
-                StatusNum = score?.statusNum,
-                StartTimeEastern = score?.startTimeEastern,
-                StartTimeUTC = score?.startTimeUTC,
-                StartDateEastern = score?.startDateEastern,
-                IsStartTimeTBD = score?.isStartTimeTBD,
-                IsPreviewArticleAvail = score?.isPreviewArticleAvail,
-                IsRecapArticleAvail = score?.isRecapArticleAvail,
+                Attendance = score.attendance,
+                Clock = score.clock,
+                EndTimeUTC = score.endTimeUTC,
+                ExtendedStatusNum = score.extendedStatusNum,
+                GameId = score.gameId,
+                HasGameBookPdf = score.hasGameBookPdf,
+                IsBuzzerBeater = score.isBuzzerBeater,
+                SeasonStageId = score.seasonStageId,
+                SeasonYear = score.seasonYear,
+                IsGameActivated = score.isGameActivated,
+                StatusNum = score.statusNum,
+                StartTimeEastern = score.startTimeEastern,
+                StartTimeUTC = score.startTimeUTC,
+                StartDateEastern = score.startDateEastern,
+                IsStartTimeTBD = score.isStartTimeTBD,
+                IsPreviewArticleAvail = score.isPreviewArticleAvail,
+                IsRecapArticleAvail = score.isRecapArticleAvail,
 
                 /* Need to populate these at some point
                 VTeam
