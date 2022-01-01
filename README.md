@@ -19,9 +19,9 @@ The solution contains two projects:
 
 ## Endpoints
 
-#### GetPlayerBio(string playerId)
-
-* Returns a short bio for a given player.
+* ```GetPlayerBio(string playerId)``` - Returns a list of playerIds for a given team and year.
+* ```GetScoreboard(string date)``` - Returns a scoreboard summary for the given date. Can be used to get GameIds.
+* ```GetTeamRosterBySlugAsync(string year, string teamSlug)``` - Returns a list of playerIds for a given team and year. Used to get PlayerIds to make other calls.
 
 #### GetScoreboard(string date)
 
