@@ -11,5 +11,7 @@ namespace NBASharp
     {
         public Task<IEnumerable<PlayerBioModel>> GetPlayerBioAsync(string playerId);
         public Task<IEnumerable<GameModel>> GetScoreboardAsync(string date);
+        public Task<IEnumerable<PlayerModel>> GetTeamRosterBySlugAsync(string year, string teamSlug);
+        public Task<IEnumerable<PlayModel>> GetLeadTrackerAsync(string gameDate, string gameId, string period);
     }
 }

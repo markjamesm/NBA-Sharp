@@ -46,5 +46,14 @@ internal class Program
         {
             Console.WriteLine($"PlayerId: {item.PersonId}");
         }
+
+        var leadTracker = nbaClient.GetLeadTrackerAsync("20170201", "0021600732", "2").GetAwaiter().GetResult();
+
+        foreach (var item in leadTracker)
+        {
+            Console.WriteLine($"Clock: {item.Clock}");
+            Console.WriteLine($"LeadTeamId: {item.LeadTeamId}");
+            Console.WriteLine($"Points: {item.Points}");
+        }
     }
 }

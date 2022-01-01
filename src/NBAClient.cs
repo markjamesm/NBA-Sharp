@@ -21,6 +21,7 @@ public class NBAClient : INBAClient
         return await returnMessage.Content.ReadAsStringAsync();
     }
 
+
     /// <summary>
     /// Returns a player bio for a given player id.
     /// </summary>
@@ -47,6 +48,7 @@ public class NBAClient : INBAClient
 
         return playerBioModel;
     }
+
 
     /// <summary>
     /// Returns a scoreboard summary for the given date. Can be used to get GameIds.
@@ -95,12 +97,13 @@ public class NBAClient : INBAClient
         return scoreboardModel;
     }
 
+
     /// <summary>
     /// Returns a list of playerIds for a given team and year. The playerIds can be used to
     /// make other calls.
     /// </summary>
     /// <param name="year">The roster year in YYYY format (eg: 2022).</param>
-    ///     /// <param name="teamSlug">The team name in slug format (eg: "pistons").</param>
+    /// <param name="teamSlug">The team name in slug format (eg: "pistons").</param>
     /// <returns>A list of game objects for a specified date</returns>
     public async Task<IEnumerable<PlayerModel>> GetTeamRosterBySlugAsync(string year, string teamSlug)
     {
@@ -117,5 +120,33 @@ public class NBAClient : INBAClient
         }
 
         return teamRosterModel;
+    }
+
+
+    /// <summary>
+    /// Gets a lead tracker for a given game period.
+    /// make other calls.
+    /// </summary>
+    /// <param name="gameDate">The roster year in YYYYMMDD format (eg: 20170201).</param>
+    /// <param name="gameId">The game id.</param>
+    /// <param name="period">The period you would like stats for.</param>
+    /// <returns>A list of containing the clock time, lead team id, and points for a given period.</returns>
+    public async Task<IEnumerable<PlayModel>> GetLeadTrackerAsync(string gameDate, string gameId, string period)
+    {
+        var leadTracker = new List<PlayModel>();
+        var response = await GetResponseAsync("prod/v1/" + gameDate +"/" + gameId + "_lead_tracker_" + period + ".json");
+        var leadTrackerRootDto = JsonSerializer.Deserialize<LeadTrackerRootDto>(response);
+
+        foreach (var item in leadTrackerRootDto.plays)
+        {
+            leadTracker.Add( new PlayModel()
+            {
+                Clock = item.clock,
+                LeadTeamId = item.leadTeamId,
+                Points = item.points
+            });
+        }
+
+        return leadTracker;
     }
 }
