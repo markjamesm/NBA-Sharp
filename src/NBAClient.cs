@@ -94,4 +94,28 @@ public class NBAClient : INBAClient
 
         return scoreboardModel;
     }
+
+    /// <summary>
+    /// Returns a list of playerIds for a given team and year. The playerIds can be used to
+    /// make other calls.
+    /// </summary>
+    /// <param name="year">The roster year in YYYY format (eg: 2022).</param>
+    ///     /// <param name="teamSlug">The team name in slug format (eg: "pistons").</param>
+    /// <returns>A list of game objects for a specified date</returns>
+    public async Task<IEnumerable<PlayerModel>> GetTeamRosterBySlugAsync(string year, string teamSlug)
+    {
+        var teamRosterModel = new List<PlayerModel>();
+        var response = await GetResponseAsync("prod/v1/" + year + "/teams/" + teamSlug + "/roster.json");
+        var scoreboardRootDto = JsonSerializer.Deserialize<TeamRosterBySlugDto>(response);
+
+        foreach (var item in scoreboardRootDto.league.standard.players)
+        {
+            teamRosterModel.Add(new PlayerModel()
+            {
+                PersonId = item.personId
+            });
+        }
+
+        return teamRosterModel;
+    }
 }

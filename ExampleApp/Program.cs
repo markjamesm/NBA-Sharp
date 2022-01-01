@@ -39,5 +39,12 @@ internal class Program
             Console.WriteLine($"Is buzzer beater: {item.IsBuzzerBeater}");
             Console.WriteLine($"Is game activated: {item.IsGameActivated}");
         }
+
+        var teamRoster = nbaClient.GetTeamRosterBySlugAsync("2018", "pistons").GetAwaiter().GetResult();
+
+        foreach (var item in teamRoster)
+        {
+            Console.WriteLine($"PlayerId: {item.PersonId}");
+        }
     }
 }
