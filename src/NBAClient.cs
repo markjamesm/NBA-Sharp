@@ -8,12 +8,12 @@ namespace NBASharp;
 /// <summary>
 /// The Api class holds all NBA API endpoints that can be accessed from NBA Sharp.
 /// </summary>
-public static class NBAClient
+public class NBAClient : INBAClient
 {
     private static HttpClient _httpClient = new HttpClient();
     private const string _baseUrl = "https://data.nba.net/";
 
-    private static async Task<string> GetResponseAsync(string? endpoint)
+    private async Task<string> GetResponseAsync(string? endpoint)
     {
 
         var returnMessage = await _httpClient.GetAsync(_baseUrl + (endpoint ?? "")).ConfigureAwait(false);
@@ -26,7 +26,7 @@ public static class NBAClient
     /// </summary>
     /// <param name="playerId">The ID of the player.</param>
     /// <returns>A list of player bio objects.</returns>
-    public static async Task<IEnumerable<PlayerBioModel>> GetPlayerBioAsync(string playerId)
+    public async Task<IEnumerable<PlayerBioModel>> GetPlayerBioAsync(string playerId)
     {
         var playerBioModel = new List<PlayerBioModel>();
         var response = await GetResponseAsync("json/bios/" + playerId + ".json");
@@ -53,7 +53,7 @@ public static class NBAClient
     /// </summary>
     /// <param name="date">The date the games took place in YYYMMDD format (eg: 20190201).</param>
     /// <returns>A list of game objects for a specified date</returns>
-    public static async Task<IEnumerable<GameModel>> GetScoreboardAsync(string date)
+    public async Task<IEnumerable<GameModel>> GetScoreboardAsync(string date)
     {
         var scoreboardModel = new List<GameModel>();
         var response = await GetResponseAsync("prod/v2/" + date + "/scoreboard.json");
